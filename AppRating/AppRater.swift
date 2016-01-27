@@ -112,7 +112,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         }
         
         //if debug {
-            println("[AppRater] tracking version \(version)")
+            print("[AppRater] tracking version \(version)")
         //}
         
         //version exists
@@ -128,7 +128,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
             defaults.setInteger(useCount, forKey: appRaterUseCountKey)
             
             //if debug {
-                println("[AppRater] use count = \(useCount)")
+                print("[AppRater] use count = \(useCount)")
             //}
         }
         
@@ -161,7 +161,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         }
         
         //if debug {
-            println("[AppRater] tracking version \(version)")
+            print("[AppRater] tracking version \(version)")
         //}
         
         //version exists
@@ -177,7 +177,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
             defaults.setInteger(significantEventCount, forKey: appRaterSignificantEventCountKey)
             
             //if debug {
-                println("[AppRater] significant event count = \(significantEventCount)")
+                print("[AppRater] significant event count = \(significantEventCount)")
             //}
         }
             
@@ -198,7 +198,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         defaults.synchronize()
     }
     
-    private func incrementAndRate(#canPromptForRating: Bool) {
+    private func incrementAndRate(canPromptForRating canPromptForRating: Bool) {
         incrementUseCount()
         
         if canPromptForRating && ratingConditionsHaveBeenMet() && ratingAlertIsAppropriate() {
@@ -208,7 +208,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         }
     }
     
-    private func incrementSignificantEventAndRate(#canPromptForRating: Bool) {
+    private func incrementSignificantEventAndRate(canPromptForRating canPromptForRating: Bool) {
         incrementSignificantEventCount()
         
         if canPromptForRating && ratingConditionsHaveBeenMet() && ratingAlertIsAppropriate() {
@@ -224,7 +224,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         appLaunched(canPromptForRating: true)
     }
     
-    func appLaunched(#canPromptForRating: Bool) {
+    func appLaunched(canPromptForRating canPromptForRating: Bool) {
         if debug {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.showRatingAlert()
@@ -234,7 +234,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         }
     }
     
-    func userDidSignificantEvent(#canPromptForRating: Bool) {
+    func userDidSignificantEvent(canPromptForRating canPromptForRating: Bool) {
         if debug {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.showRatingAlert()
@@ -244,7 +244,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         }
     }
     
-    func showRatingAlert(#showRateLaterButton: Bool) {
+    func showRatingAlert(showRateLaterButton showRateLaterButton: Bool) {
         var controller: UIAlertView?
         if showRateLaterButton {
             controller = UIAlertView(title: alertTitle, message: alertMessage, delegate: self, cancelButtonTitle: alertCancelTitle, otherButtonTitles: alertRateTitle, alertRateLaterTitle)
@@ -268,7 +268,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         //no thanks
         if buttonIndex == 0 {
             //if debug {
-                println("[AppRater] did decline to rate")
+                print("[AppRater] did decline to rate")
             //}
             delegate?.appRaterDidDeclineToRate(self)
             defaults.setBool(true, forKey: appRaterDeclinedToRateKey)
@@ -278,7 +278,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         //rate
         else if buttonIndex == 1 {
             //if debug {
-                println("[AppRater] did opt to rate")
+                print("[AppRater] did opt to rate")
             //}
             delegate?.appRaterDidOptToRate(self)
             rateApp()
@@ -287,7 +287,7 @@ class AppRater: NSObject, UIAlertViewDelegate {
         //remind me later
         else if buttonIndex == 2 {
             //if debug {
-                println("[AppRater] did opt to remind later")
+                print("[AppRater] did opt to remind later")
             //}
             delegate?.appRaterDidOptToRemindLater(self)
             defaults.setDouble(NSDate().timeIntervalSince1970, forKey: appRaterReminderRequestDate)
